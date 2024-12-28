@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  source: one
+  source_type: Source
+  destination: one
+  destination_type: Destination
+  inventory: one
+  quantity: 1
+  status: MyString
+
+two:
+  source: two
+  source_type: Source
+  destination: two
+  destination_type: Destination
+  inventory: two
+  quantity: 1
+  status: MyString
