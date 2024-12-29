@@ -1,0 +1,59 @@
+<h1>New Stock Movement</h1>
+<%= form_with(model: @stock_movement, local: true) do |form| %>
+  <% if @stock_movement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stock_movement.errors.count, "error") %> prohibited this stock movement from being saved:</h2>
+      <ul>
+        <% @stock_movement.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :source_type %>
+    <%= form.select :source_type, options_for_select(['Warehouse', 'Branch']), { prompt: 'Select Source Type' } %> <!-- Type of source -->
+  </div>
+
+  <div class="field">
+    <%= form.label :source_id %>
+    <%= form.select :source_id, options_from_collection_for_select(Warehouse.all, :id, :name), { prompt: 'Select Source' } %> <!-- source selection for warehouse -->
+  </div>
+
+  <div class="field">
+    <%= form.label :destination_type %>
+    <%= form.select :destination_type, options_for_select(['Warehouse', 'Branch']), { prompt: 'Select Destination Type' } %> <!-- Type of destination -->
+  </div>
+
+  <div class="field">
+    <%= form.label :destination_id %>
+    <%= form.select :destination_id, options_from_collection_for_select(Branch.all, :id, :name), { prompt: 'Select Destination' } %> <!-- destination selection for branch -->
+  </div>
+
+  <div class="field">
+    <%= form.label :inventory_id %>
+    <%= form.collection_select :inventory_id, Inventory.all, :id, :name, prompt: 'Select Inventory' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.text_field :status %> <!-- status like 'Pending', 'Completed' -->
+  </div>
+  
+   <div class="field">
+    <%= form.label :date %> <!-- Label for the date field -->
+    <%= form.datetime_local_field :date, value: @stock_movement.date || Time.current %> <!-- Date input field -->
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Create Stock Movement' %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Stock Movements', stock_movements_path %>

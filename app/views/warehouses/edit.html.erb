@@ -1,0 +1,28 @@
+<h1>Edit Warehouse</h1>
+<%= form_with(model: @warehouse, local: true) do |form| %>
+  <% if @warehouse.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@warehouse.errors.count, "error") %> prohibited this warehouse from being saved:</h2>
+      <ul>
+        <% @warehouse.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :location %>
+    <%= form.text_field :location %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+<%= link_to 'Back to Warehouses', warehouses_path %>

@@ -1,0 +1,43 @@
+<h1>Edit Stock Movement</h1>
+<%= form_with(model: @stock_movement, local: true) do |form| %>
+  <% if @stock_movement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stock_movement.errors.count, "error") %> prohibited this stock movement from being saved:</h2>
+      <ul>
+        <% @stock_movement.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :inventory_id %>
+    <%= form.collection_select :inventory_id, Inventory.all, :id, :name, prompt: 'Select Inventory' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity, min: 1 %>
+  </div>
+
+  <div class="field">
+    <%= form.label :date %>
+    <%= form.datetime_local_field :date %>
+  </div>
+
+  <div class="field">
+    <%= form.label :warehouse_id %>
+    <%= form.collection_select :warehouse_id, Warehouse.all, :id, :name, prompt: 'Select Warehouse' %>
+  </div>
+
+  <div class="field">
+    <%= form.label :branch_id %>
+    <%= form.collection_select :branch_id, Branch.all, :id, :name, prompt: 'Select Branch' %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
+<%= link_to 'Back to Stock Movements', stock_movements_path %>
