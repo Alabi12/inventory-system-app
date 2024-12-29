@@ -1,0 +1,9 @@
+<!-- app/views/inventories/show.html.erb -->
+<h1>Warehouse Details</h1>
+
+<p><strong>Name:</strong> <%= @warehouse.name %></p>
+<p><strong>Location:</strong> <%= @warehouse.location %></p>
+
+
+<%= link_to 'Edit', edit_warehouse_path(@warehouse), class: 'btn btn-warning' %> |
+<%= link_to 'Back to Warehouse', warehouse_path, class: 'btn btn-primary' %>

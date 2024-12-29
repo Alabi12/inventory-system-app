@@ -1,0 +1,31 @@
+<h1>Stock Movements</h1>
+
+<%= link_to 'New Stock Movement', new_stock_movement_path, class: 'btn btn-primary' %>
+
+<table>
+  <thead>
+    <tr>
+      <th>Inventory</th>
+      <th>Quantity</th>
+      <th>Date</th>
+      <th>Warehouse</th>
+      <th>Branch</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @stock_movements.each do |stock_movement| %>
+      <tr>
+        <td><%= stock_movement.inventory.name %></td>
+        <td><%= stock_movement.quantity %></td>
+        <td><%= stock_movement.date.present? ? stock_movement.date.strftime('%Y-%m-%d %H:%M') : 'No date set' %></td>
+        <td><%= stock_movement.source_type == 'Warehouse' ? stock_movement.source.name : '' %></td>
+        <td><%= stock_movement.destination_type == 'Branch' ? stock_movement.destination.name : '' %></td>
+        <td>
+         <%= link_to 'Edit', edit_stock_movement_path(stock_movement), class: 'btn btn-warning' %> | |
+          <%= link_to 'Delete', stock_movement, method: :delete, data: { confirm: 'Are you sure you want to delete this stock movement?' }, class: 'btn btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

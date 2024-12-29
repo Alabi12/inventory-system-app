@@ -1,0 +1,11 @@
+<!-- app/views/inventories/show.html.erb -->
+<h1>Inventory Details</h1>
+
+<p><strong>Name:</strong> <%= @inventory.name %></p>
+<p><strong>SKU:</strong> <%= @inventory.sku %></p>
+<p><strong>Quantity:</strong> <%= @inventory.quantity %></p>
+<p><strong>Warehouse:</strong> <%= @inventory.warehouse&.name %></p>
+<p><strong>Branch:</strong> <%= @inventory.branch&.name %></p>
+
+<%= link_to 'Edit', edit_inventory_path(@inventory), class: 'btn btn-warning' %> |
+<%= link_to 'Back to Inventories', inventories_path, class: 'btn btn-primary' %>
