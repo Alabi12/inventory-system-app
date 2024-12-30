@@ -1,0 +1,30 @@
+<h1>Edit Issuance</h1>
+
+<%= form_with(model: @issuance, local: true) do |form| %>
+  <% if @issuance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@issuance.errors.count, "error") %> prohibited this issuance from being saved:</h2>
+      <ul>
+        <% @issuance.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :inventory_id %>
+    <%= form.collection_select :inventory_id, Inventory.all, :id, :name, prompt: "Select Inventory" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.number_field :quantity %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Update Issuance" %>
+  </div>
+<% end %>
+
+<%= link_to 'Back', issuances_path %>

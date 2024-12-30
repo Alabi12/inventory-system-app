@@ -1,0 +1,24 @@
+<h1>Vehicle Usage for Warehouse: <%= @warehouse.name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vehicle</th>
+      <th>Driver</th>
+      <th>Destination</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @vehicle_movements.present? %>
+    <% @vehicle_movements.each do |movement| %>
+      <tr>
+        <td><%= movement.vehicle.name %></td>
+        <td><%= movement.driver.name %></td>
+        <td><%= movement.destination %></td>
+        <td><%= movement.date %></td>
+      </tr>
+    <% end %>
+    <% end %>
+  </tbody>
+</table>

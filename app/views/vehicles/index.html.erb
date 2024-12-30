@@ -1,0 +1,27 @@
+<h1>Vehicles in <%= @warehouse.name %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Vehicle Number</th>
+      <th>Capacity</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @vehicles.each do |vehicle| %>
+      <tr>
+        <td><%= vehicle.vehicle_number %></td>
+        <td><%= vehicle.capacity %></td>
+        <td>
+          <%= link_to 'Show', warehouse_vehicle_path(@warehouse, vehicle) %> |
+          <%= link_to 'Edit', edit_warehouse_vehicle_path(@warehouse, vehicle) %> |
+          <%= link_to 'Delete', warehouse_vehicle_path(@warehouse, vehicle), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'Add New Vehicle', new_warehouse_vehicle_path(@warehouse) %>
+<%= link_to 'Back to Warehouses', warehouses_path %>

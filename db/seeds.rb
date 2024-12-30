@@ -1,11 +1,13 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-Warehouse.create([{ name: "Central Warehouse", location: "Accra" }])
-Branch.create([{ name: "Branch 1", location: "Tema" }, { name: "Branch 2", location: "Kumasi" }])
+# Find or create a warehouse
+warehouse = Warehouse.find_or_create_by(name: "Accra Warehouse", location: "Accra")
+branch_one = Branch.find_or_create_by(name: "Accra", location: "Accra")
+
+# Create some inventory items
+Inventory.create([
+  { name: "Cement Bag", quantity: 10, warehouse: warehouse, branch: branch_one },
+  { name: "Roofing Nails", quantity: 5, warehouse: warehouse, branch: branch_one },
+  { name: "Steel Rods", quantity: 100, warehouse: warehouse, branch: branch_one }, # Not slow-moving
+  { name: "Paint Cans", quantity: 3, warehouse: warehouse, branch: branch_one }
+])
+
+puts "Inventories for #{warehouse.name} created successfully!"
