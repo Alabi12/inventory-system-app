@@ -1,0 +1,38 @@
+<h1>Issue Inventory</h1>
+
+<%= form_with(model: @issuance, local: true) do |form| %>
+  <% if @issuance.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@issuance.errors.count, "error") %> prohibited this issuance from being saved:</h2>
+      <ul>
+        <% @issuance.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :inventory_id, "Inventory" %>
+    <%= form.select :inventory_id, @inventories.collect { |inventory| [inventory.name, inventory.id] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :warehouse_id, "Warehouse" %>
+    <%= form.select :warehouse_id, @warehouses.collect { |warehouse| [warehouse.name, warehouse.id] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :branch_id, "Branch" %>
+    <%= form.select :branch_id, @branches.collect { |branch| [branch.name, branch.id] } %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity, "Quantity" %>
+    <%= form.number_field :quantity %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit 'Issue Inventory' %>
+  </div>
+<% end %>

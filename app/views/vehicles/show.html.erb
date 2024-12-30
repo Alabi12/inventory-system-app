@@ -1,0 +1,5 @@
+<h1><%= @warehouse.name %></h1>
+<p>Location: <%= @warehouse.location %></p>
+
+<%= link_to 'Manage Vehicles', warehouse_vehicles_path(@warehouse) %>
+<%= link_to 'Back to Warehouses', warehouses_path %>

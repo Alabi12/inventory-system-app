@@ -1,5 +1,6 @@
 class WarehousesController < ApplicationController
-  before_action :set_warehouse, only: [:edit, :update, :destroy]
+  before_action :set_warehouse, only: [:show, :edit, :update, :destroy, :dashboard, :slow_movement_report, :vehicle_usage]
+  
   def index
     @warehouses = Warehouse.all
   end
@@ -8,8 +9,9 @@ class WarehousesController < ApplicationController
     @warehouse = Warehouse.new
   end
 
-  def show 
+  def show
     @warehouse = Warehouse.find(params[:id])
+    puts "Warehouse found: #{@warehouse.inspect}" # Debugging output
   end
 
   def create
@@ -22,11 +24,10 @@ class WarehousesController < ApplicationController
   end
 
   def edit
-    @warehouse = Warehouse.find(params[:id])
+    # No need to call Warehouse.find(params[:id]) here since it's already done in before_action
   end
 
   def update
-    @warehouse = Warehouse.find(params[:id])
     if @warehouse.update(warehouse_params)
       redirect_to warehouses_path, notice: "Warehouse updated successfully."
     else
@@ -35,18 +36,46 @@ class WarehousesController < ApplicationController
   end
 
   def destroy
-    @warehouse = Warehouse.find(params[:id])
     @warehouse.destroy
     redirect_to warehouses_path, notice: "Warehouse deleted."
   end
 
+
+  
   private
 
-  def set_warehouse
-    @warehouse = Warehouse.find(params[:id]) 
+  def dashboard
+    @inventories = @warehouse.inventories # Assuming Inventory has a warehouse_id
   end
 
+  def slow_movement_report
+    @warehouse = Warehouse.find(params[:id])
+    @slow_moving_items = @warehouse.inventories.where('quantity < ?', 50)
+  
+    # Debugging: Check if the variable is set properly
+    puts "Slow moving items: #{@slow_moving_items.inspect}"
+  end
+ 
+  
+  def vehicle_usage
+    Rails.logger.info("Fetching vehicle usage for warehouse #{params[:warehouse_id]}")
+    @vehicle_movements = VehicleMovement.where(warehouse_id: params[:warehouse_id])
+  end  
+
+  def set_warehouse
+    if params[:id].present?
+      @warehouse = Warehouse.find_by(id: params[:id])
+      unless @warehouse
+        flash[:alert] = "Warehouse not found."
+        redirect_to warehouses_path
+      end
+    else
+      flash[:alert] = "No warehouse ID provided."
+      redirect_to warehouses_path
+    end
+  end  
+    
   def warehouse_params
-    params.require(:warehouse).permit(:name, :location)
+    params.require(:warehouse).permit(:name, :location, :warehouse_id)
   end
 end

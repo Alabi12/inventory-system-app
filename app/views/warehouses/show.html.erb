@@ -4,6 +4,35 @@
 <p><strong>Name:</strong> <%= @warehouse.name %></p>
 <p><strong>Location:</strong> <%= @warehouse.location %></p>
 
+<h1>Warehouse Dashboard: <%= @warehouse.name %></h1>
 
+<!-- Link to manage inventories -->
+<h3>Manage Inventories</h3>
+<p>
+  <%= link_to 'View Inventory List', inventories_path(@warehouse), class: 'btn btn-primary' %>
+</p>
+
+<!-- Link to track slow-moving items -->
+<h3>Slow Movement Report</h3>
+  <p>
+  <%= link_to 'Slow Movement Report', slow_movement_report_warehouse_path(@warehouse), class: 'btn btn-secondary' %>
+</p>
+
+<!-- Link to manage issuance (Inventory issued to branches) -->
+<h3>Manage Issuance</h3>
+<p>
+  <%= link_to 'Create New Issuance', new_issuance_path, class: 'btn btn-info' %> |
+  <%= link_to 'View Issuance History', issuances_path, class: 'btn btn-info' %>
+</p>
+
+<!-- Link to manage vehicles -->
+<h3>Vehicle Management</h3>
+<p>
+ <%= link_to "New Vehicle", new_vehicle_path(warehouse_id: @warehouse.id) %> |
+  <%= link_to "View Vehicles", warehouse_vehicles_path(@warehouse) %> |
+ <%= link_to 'Vehicle Usage', vehicle_usage_warehouse_path(@warehouse), class: 'btn btn-warning' %>
+</p>
+
+<%= link_to 'Back to Warehouse List', warehouses_path, class: 'btn btn-light' %>
 <%= link_to 'Edit', edit_warehouse_path(@warehouse), class: 'btn btn-warning' %> |
-<%= link_to 'Back to Warehouse', warehouse_path, class: 'btn btn-primary' %>
+<%= link_to 'Back to Warehouse', warehouse_path(@warehouse), class: 'btn btn-primary' %>

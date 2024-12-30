@@ -1,0 +1,28 @@
+<h1>All Issuances</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Inventory</th>
+      <th>Quantity</th>
+      <th>Date</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @issuances.each do |issuance| %>
+      <tr>
+        <td><%= issuance.id %></td>
+        <td><%= issuance.inventory.name %></td>
+        <td><%= issuance.quantity %></td>
+        <td><%= issuance.created_at.to_date %></td>
+        <td>
+          <%= link_to 'View', issuance_path(issuance) %>
+          <%= link_to 'Edit', edit_issuance_path(issuance) %>
+          <%= button_to 'Delete', issuance_path(issuance), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

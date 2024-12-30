@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  inventory: one
+  warehouse: one
+  branch: one
+  quantity: 1
+
+two:
+  inventory: two
+  warehouse: two
+  branch: two
+  quantity: 1

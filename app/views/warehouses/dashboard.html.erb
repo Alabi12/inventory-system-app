@@ -1,0 +1,20 @@
+<h1>Warehouse Dashboard</h1>
+<h3>Inventory Quantities</h3>
+<table>
+  <thead>
+    <tr>
+      <th>Inventory Name</th>
+      <th>SKU</th>
+      <th>Quantity in Stock</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @inventories.each do |inventory| %>
+      <tr>
+        <td><%= inventory.name %></td>
+        <td><%= inventory.sku %></td>
+        <td><%= inventory.quantity %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
